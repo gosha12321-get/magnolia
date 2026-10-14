@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магнолия — Студия эстетической косметологии</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #fce4ec;
+            --accent-pink: #f06292;
+            --dark-pink: #880e4f;
+            --gold: #d4af37;
+            --white: #ffffff;
+            --text-gray: #5d4037;
+            --light-gray: #f9f9f9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--white);
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--dark-pink);
+        }
+
+        header {
+            background-color: var(--primary-pink);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark-pink);
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        nav a {
+            margin-left: 25px;
+            text-decoration: none;
+            color: var(--dark-pink);
+            font-weight: 600;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        nav a:hover {
+            color: var(--accent-pink);
+        }
+
+        .hero {
+            height: 80vh;
+            background: linear-gradient(rgba(252, 228, 236, 0.7), rgba(252, 228, 236, 0.7)),
+                        url('https://images.unsplash.com/photo-1570172619369-a0C3f770f3f7?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .btn {
+            background-color: var(--accent-pink);
+            color: white;
+            padding: 15px 35px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(240, 98, 146, 0.4);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: var(--dark-pink);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(136, 14, 79, 0.3);
+        }
+
+        section {
+            padding: 80px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+        }
+
+        /* Квиз */
+        .quiz-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--primary-pink);
+            padding: 40px;
+            border-radius: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .quiz-step { display: none; }
+        .quiz-step.active { display: block; }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .quiz-btn {
+            padding: 15px;
+            background: white;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            color: var(--dark-pink);
+            transition: all 0.3s;
+        }
+
+        .quiz-btn:hover {
+            border-color: var(--accent-pink);
+        }
+
+        /* Эксперты */
+        .experts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .expert-card {
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+
+        .expert-img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .expert-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, var(--dark-pink));
+            color: white;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .expert-card:hover .expert-overlay { transform: translateY(0); }
+        .expert-card:hover .expert-img { transform: scale(1.1); }
+
+        /* Прайс */
+        .price-table {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--primary-pink);
+        }
+
+        .price-name { font-weight: 600; color: var(--dark-pink); }
+        .price-value { font-weight: 700; color: var(--accent-pink); }
+
+        /* Галерея */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            height: 300px;
+        }
+
+        .gallery-item img {
+            width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-label {
+            position: absolute; bottom: 10px; left: 10px; background: rgba(255,255,255,0.8);
+            padding: 5px 12px; border-radius: 5px; font-size: 0.8rem; color: var(--dark-pink);
+        }
+
+        /* Контакты */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-form input, .contact-form textarea, .contact-form select {
+            padding: 12px;
+            border: 1px solid var(--primary-pink);
+            border-radius: 8px;
+            font-family: inherit;
+            outline: none;
+        }
+
+        .time-picker {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .time-slot {
+            padding: 8px;
+            border: 1px solid var(--primary-pink);
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .time-slot.selected {
+            background: var(--accent-pink);
+            color: white;
+            border-color: var(--accent-pink);
+        }
+
+        .premium-banner {
+            background-color: var(--dark-pink);
+            color: var(--primary-pink);
+            padding: 60px 5%;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        footer {
+            background-color: #fdf2f8;
+            padding: 40px 5%;
+            text-align: center;
+            border-top: 1px solid var(--primary-pink);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            header { flex-direction: column; gap: 15px; }
+            .contact-container { grid-template-columns: 1fr; }
+            .quiz-options { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">МАГНОЛИЯ</a>
+        <nav>
+            <a href="#quiz">Подбор</a>
+            <a href="#services">Услуги</a>
+            <a href="#experts">Врачи</a>
+            <a href="#prices">Прайс</a>
+            <a href="#gallery">Результаты</a>
+            <a href="#contact">Запись</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Искусство вашей красоты</h1>
+        <p>Премиальный уход и эстетическая косметология в самом сердце города. Мы создаем вашу уверенность через безупречность кожи.</p>
+        <a href="#quiz" class="btn">Подобрать процедуру</a>
+    </section>
+
+    <section id="quiz">
+        <h2 class="section-title">Подберите свой идеальный уход</h2>
+        <div class="quiz-container" id="quizBox">
+            <div class="quiz-step active" data-step="1">
+                <h3>Какой у вас тип кожи?</h3>
+                <div class="quiz-options">
+                    <button class="quiz-btn" onclick="nextStep(1, 'Сухая')">Сухая</button>
+                    <button class="quiz-btn" onclick="nextStep(1, 'Жирная')">Жирная</button>
+                    <button class="quiz-btn" onclick="nextStep(1, 'Комбинированная')">Комбинированная</button>
+                    <button class="quiz-btn" onclick="nextStep(1, 'Нормальная')">Нормальная</button>
+                </div>
+            </div>
+            <div class="quiz-step" data-step="2">
+                <h3>Что вас беспокоит больше всего?</h3>
+                <div class="quiz-options">
+                    <button class="quiz-btn" onclick="nextStep(2, 'Морщинки')">Морщинки</button>
+                    <button class="quiz-btn" onclick="nextStep(2, 'Акне/Поры')">Акне/Поры</button>
+                    <button class="quiz-btn" onclick="nextStep(2, 'Цвет лица')">Тусклый цвет лица</button>
+                    <button class="quiz-btn" onclick="nextStep(2, 'Пигментация')">Пигментация</button>
+                </div>
+            </div>
+            <div class="quiz-step" data-step="3">
+                <h3>Желаемый результат?</h3>
+                <div class="quiz-options">
+                    <button class="quiz-btn" onclick="showResult('Лифтинг и омоложение')">Эффект лифтинга</button>
+                    <button class="quiz-btn" onclick="showResult('Чистое сияние кожи')">Чистая и сияющая кожа</button>
+                    <button class="quiz-btn" onclick="showResult('Глубокое увлажнение')">Идеальное увлажнение</button>
+                    <button class="quiz-btn" onclick="showResult('Ровный тон')">Безупречный тон</button>
+                </div>
+            </div>
+            <div class="quiz-step" id="quiz-result">
+                <h3>Ваш идеальный выбор:</h3>
+                <p id="result-text" style="font-size: 1.5rem; margin: 20px 0; color: var(--accent-pink); font-weight: 700;"></p>
+                <a href="#contact" class="btn">Записаться сейчас</a>
+                <button onclick="resetQuiz()" style="display:block; margin: 20px auto; background:none; border:none; cursor:pointer; text-decoration:underline; color:var(--text-gray);">Пройти заново</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <h2 class="section-title">Наши Услуги</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Чистка лица</h3>
+                <p>Глубокое очищение кожи с использованием премиальных сывороток.</p>
+            </div>
+            <div class="service-card">
+                <h3>Омоложение</h3>
+                <p>Инновационные методики lifting-эффекта для упругости кожи.</p>
+            </div>
+            <div class="service-card">
+                <h3>Пилинги</h3>
+                <p>Бережное обновление кожи и выравнивание тона лица.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="experts">
+        <h2 class="section-title">Наши Эксперты</h2>
+        <div class="experts-grid">
+            <div class="expert-card">
+                <img src="https://images.unsplash.com/photo-1559839734-2b71f1536780?auto=format&fit=crop&w=400&q=80" class="expert-img">
+                <div class="expert-overlay">
+                    <h4>Д-р Елена Магнолия</h4>
+                    <p>Главный врач, стаж 15 лет. Эксперт по инъекционному омоложению.</p>
+                </div>
+            </div>
+            <div class="expert-card">
+                <img src="https://images.unsplash.com/photo-159482447H8-57573724604d?auto=format&fit=crop&w=400&q=80" class="expert-img">
+                <div class="expert-overlay">
+                    <h4>Анна Соколова</h4>
+                    <p>Ведущий косметолог-эстетист. Мастер чисток и пилингов.</p>
+                </div>
+            </div>
+            <div class="expert-card">
+                <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=400&q=80" class="expert-img">
+                <div class="expert-overlay">
+                    <h4>Мария Ли</h4>
+                    <p>Специалист по аппаратной косметологии и RF-лифтингу.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="prices" style="background-color: var(--light-gray);">
+        <h2 class="section-title">Прайс-лист</h2>
+        <div class="price-table">
+            <div class="price-row"><span class="price-name">Комплексная чистка</span><span class="price-value">5 500 ₽</span></div>
+            <div class="price-row"><span class="price-name">Биоревитализация</span><span class="price-value">12 000 ₽</span></div>
+            <div class="price-row"><span class="price-name">Химический пилинг</span><span class="price-value">4 000 ₽</span></div>
+            <div class="price-row"><span class="price-name">Контурная пластика губ</span><span class="price-value">15 000 ₽</span></div>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <h2 class="section-title">Результаты</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=400&q=80" alt="Результат 1">
+                <div class="gallery-label">Лечение акне</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1596756072878-57573724604d?auto=format&fit=crop&w=400&q=80" alt="Результат 2">
+                <div class="gallery-label">Омоложение</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1522335789203-ab3f29bbc3?auto=format&fit=crop&w=400&q=80" alt="Результат 3">
+                <div class="gallery-label">Контуринг</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title">Записаться на процедуру</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Ждем вас в "Магнолии"</h3>
+                <p>Ваша кожа заслуживает лучшего ухода.</p>
+                <br>
+                <p>📍 ул. 1 Мая, косметология</p>
+                <p>📞 +7 (999) 000-00-00</p>
+                <p>⏰ Ежедневно с 10:00 до 21:00</p>
+            </div>
+            <form class="contact-form" id="tgForm">
+                <input type="text" id="userName" placeholder="Ваше имя" required>
+                <input type="tel" id="userPhone" placeholder="Ваш телефон" required>
+                <select id="userService" style="padding: 12px; border: 1px solid var(--primary-pink); border-radius: 8px; font-family: inherit;">
+                    <option value="">Выберите услугу</option>
+                    <option value="Чистка лица">Чистка лица</option>
+                    <option value="Омоложение">Омоложение</option>
+                    <option value="Пилинги">Пилинги</option>
+                    <option value="Другое">Другое</option>
+                </select>
+                <p style="font-size: 0.8rem; font-weight: 600; color: var(--dark-pink); margin-top: 10px;">Выберите время:</p>
+                <div class="time-picker" id="timePicker">
+                    <div class="time-slot" onclick="selectTime(this)">10:00</div>
+                    <div class="time-slot" onclick="selectTime(this)">12:00</div>
+                    <div class="time-slot" onclick="selectTime(this)">14:00</div>
+                    <div class="time-slot" onclick="selectTime(this)">16:00</div>
+                    <div class="time-slot" onclick="selectTime(this)">18:00</div>
+                    <div class="time-slot" onclick="selectTime(this)">20:00</div>
+                </div>
+                <textarea id="userMessage" rows="4" placeholder="Ваши пожелания"></textarea>
+                <button type="submit" class="btn">Забронировать время</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="premium-banner">
+        <h2>Премиум Стандарт</h2>
+        <p>Индивидуальный подход и лучшие специалисты отрасли.</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Студия косметологии "Магнолия". Все права защищены.</p>
+    </footer>
+
+    <script>
+        // ==========================================
+        // НАСТРОЙКИ TELEGRAM (ЗАПОЛНИ ЭТО!)
+        // ==========================================
+        const TG_BOT_TOKEN = '8897409449:AAGdytQU9H0B3uyyZAPJMAcy08mLovbt1l4';
+        const TG_CHAT_ID = '@magnolia1beauty1bot';
+        // ==========================================
+
+        // Логика Квиза
+        function nextStep(currentStep, value) {
+            document.querySelector(`[data-step="${currentStep}"]`).classList.remove('active');
+            document.querySelector(`[data-step="${currentStep + 1}"]`).classList.add('active');
+        }
+
+        function showResult(result) {
+            document.querySelector('.quiz-step.active').classList.remove('active');
+            document.getElementById('quiz-result').classList.add('active');
+            document.getElementById('result-text').innerText = result;
+        }
+
+        function resetQuiz() {
+            document.getElementById('quiz-result').classList.remove('active');
+            document.querySelector('[data-step="1"]').classList.add('active');
+        }
+
+        // Логика выбора времени
+        let selectedTimeValue = "";
+        function selectTime(element) {
+            document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedTimeValue = element.innerText;
+        }
+
+        // Отправка данных в Telegram
+        async function sendToTelegram(message) {
+            const url = `https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`;
+            try {
+                await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: TG_CHAT_ID,
+                        text: message,
+                        parse_mode: 'HTML'
+                    })
+                });
+            } catch (e) {
+                console.error("Ошибка отправки в TG:", e);
+            }
+        }
+
+        // Отслеживание посещений (IP и Город)
+        async function trackVisit() {
+            try {
+                const response = await fetch('https://ipapi.co/json/');
+                const data = await response.json();
+                const visitMsg = `🌐 <b>Новый посетитель!</b>\nIP: ${data.ip}\nГород: ${data.city}, ${data.country_name}\nПровайдер: ${data.org}`;
+                await sendToTelegram(visitMsg);
+            } catch (e) {}
+        }
+
+        window.onload = trackVisit;
+
+        document.getElementById('tgForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('userName').value;
+            const phone = document.getElementById('userPhone').value;
+            const service = document.getElementById('userService').value;
+            const message = document.getElementById('userMessage').value;
+
+            const orderMsg = `🌸 <b>Новая запись в Магнолию!</b>\n\n👤 Имя: ${name}\n📞 Тел: ${phone}\n💅 Услуга: ${service}\n⏰ Время: ${selectedTimeValue || 'Не выбрано'}\n📝 Пожелания: ${message || 'Нет'}`;
+
+            await sendToTelegram(orderMsg);
+
+            alert("Ваша заявка отправлена! Мы свяжемся с вами в ближайшее время.");
+            this.reset();
+            document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('selected'));
+            selectedTimeValue = "";
+        });
+    </script>
+</body>
+</html>
